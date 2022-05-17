@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+import Header from './components/Header';
 
 function App() {
+
+  const WHEATHER_URL = 'https://api.coinbase.com/v2/currencies';
+  const [todo, setTodo] = useState();
+
+  const featchAPI =  async () => {
+    const response = await fetch(WHEATHER_URL);
+    const responseData = await response.json();
+    setTodo(responseData.data);
+  }
+
+  useEffect(()=>{
+    featchAPI();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+      <Header />
+      <br />
+        
+    </div>
     </div>
   );
 }
